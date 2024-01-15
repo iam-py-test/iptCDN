@@ -77,8 +77,9 @@ jobs:
       - name: Update existing patches
         if: ${{ env.CAN_DO == 'yes' }}
         run: |
+          rm -f patches/2024.1.5.758.patch
           PATCHES_DIR="patches"
-          FILTER_FILES=$(git ls-files --exclude-standard -- lists/*.min.txt)
+          FILTER_FILES=$(git ls-files --exclude-standard -- lists/*.txt)
           ${{ env.BUILDDIR }}/update-diffpatches.sh "$GITHUB_REPOSITORY" "$PATCHES_DIR" "$FILTER_FILES"
       - name: Commit changes, if any
         if: ${{ env.CAN_DO == 'yes' }}
