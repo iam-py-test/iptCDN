@@ -50,7 +50,7 @@ jobs:
         if: ${{ env.CAN_DO == 'yes' }}
         run: |
           TMPDIR="$(mktemp -d)"
-          git clone --depth=1 --single-branch --branch=master https://github.com/iam-py-test/my_filters_001 "$TMPDIR"
+          git clone --depth=1 --single-branch --branch=main https://github.com/iam-py-test/my_filters_001 "$TMPDIR"
           cp -v  "$TMPDIR"/*.txt "${{ env.BUILDDIR }}"
       - name: Patch last-updated field
         if: ${{ env.CAN_DO == 'yes' }}
