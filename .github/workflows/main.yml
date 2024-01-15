@@ -50,31 +50,13 @@ jobs:
         if: ${{ env.CAN_DO == 'yes' }}
         run: |
           TMPDIR="$(mktemp -d)"
-          git clone --depth=1 --single-branch --branch=master https://github.com/easylist/ruadlist "$TMPDIR"
+          git clone --depth=1 --single-branch --branch=master https://github.com/iam-py-test/my_filters_001 "$TMPDIR"
           cp -v  "$TMPDIR"/*.txt "${{ env.BUILDDIR }}"
-          cp -Rv "$TMPDIR"/advblock "${{ env.BUILDDIR }}"
-      - name: Generate ruadlist.ubo.min.txt from RuAdList-uBO.txt
-        if: ${{ env.CAN_DO == 'yes' }}
-        run: |
-          pushd ${{ env.BUILDDIR }}
-          : > ruadlist.template
-          echo "[uBlock Origin 1.0]" >> ruadlist.template
-          echo "! Title: RU AdList for uBO only" >> ruadlist.template
-          echo "! Expires: 4 days" >> ruadlist.template
-          echo "! Last modified: %timestamp%" >> ruadlist.template
-          echo "! Diff-Path: %diffpath%#ruadlist" >> ruadlist.template
-          echo "! Diff-Expires: 5 hours" >> ruadlist.template
-          echo "! License: https://github.com/dimisa-RUAdList/RUAdListCDN/blob/main/LICENSE" >> ruadlist.template
-          echo >> ruadlist.template
-          echo "%include ruadlist:RuAdList-uBO.txt%" >> ruadlist.template
-          node ./make-easylist.mjs in=ruadlist.template out=ruadlist.ubo.min.txt minify=1
-          popd
-          cp ${{ env.BUILDDIR }}/ruadlist.ubo.min.txt lists/
       - name: Patch last-updated field
         if: ${{ env.CAN_DO == 'yes' }}
         run: |
           DATE=$(date -Ru)
-          FILTER_LISTS=( "lists/ruadlist.ubo.min.txt" )
+          FILTER_LISTS=( "lists/antimalware.txt" )
           for FILE in "${FILTER_LISTS[@]}"; do
             STAT=$(git diff --numstat $FILE | sed -r '/^1\s+1\s+/d')
             if [[ -n $STAT ]]; then
