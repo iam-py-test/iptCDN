@@ -56,7 +56,8 @@ jobs:
         if: ${{ env.CAN_DO == 'yes' }}
         run: |
           DATE=$(date -Ru)
-          FILTER_LISTS=( "lists/antimalware.txt" )
+          ls -l
+          FILTER_LISTS=( "antimalware.txt" )
           for FILE in "${FILTER_LISTS[@]}"; do
             STAT=$(git diff --numstat $FILE | sed -r '/^1\s+1\s+/d')
             if [[ -n $STAT ]]; then
