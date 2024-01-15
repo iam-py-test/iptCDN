@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: Repo check
         run: |
-          if [[ "$GITHUB_REPOSITORY_OWNER" != "dimisa-RUAdList" ]]; then
+          if [[ "$GITHUB_REPOSITORY_OWNER" != "iam-py-test" ]]; then
             echo "This GitHub Action is meant to deliver filter lists for RUAdList."
             echo "You shouldn't need to run this GitHub Action in your fork."
             echo "If you do, please customize the cron expression above, and"
