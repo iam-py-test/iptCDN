@@ -52,11 +52,13 @@ jobs:
           TMPDIR="$(mktemp -d)"
           git clone --depth=1 --single-branch --branch=main https://github.com/iam-py-test/my_filters_001 "$TMPDIR"
           cp -v  "$TMPDIR"/*.txt "${{ env.BUILDDIR }}"
+          echo "${{ env.BUILDDIR }}"
+          ls "${{ env.BUILDDIR }}"
       - name: Patch last-updated field
         if: ${{ env.CAN_DO == 'yes' }}
         run: |
           DATE=$(date -Ru)
-          ls -l
+          ls -laR
           FILTER_LISTS=( "antimalware.txt" )
           for FILE in "${FILTER_LISTS[@]}"; do
             STAT=$(git diff --numstat $FILE | sed -r '/^1\s+1\s+/d')
